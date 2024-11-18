@@ -113,5 +113,6 @@ border:none;
 
         .register-link a:hover {
             text-decoration: underline;
+            cursor: pointer;
         }
 `

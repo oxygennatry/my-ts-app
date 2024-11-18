@@ -13,11 +13,14 @@ export const Header = ({ logoSrc, ...rest }: HeaderProps) => {
 
   const navigate = useNavigate();
 
-  const goToNextPage = () => {
+  const goToRegistrationPage = () => {
       navigate("/registration-page");
   };
   const goToMainMenu = () => {
     navigate("/");
+};
+const goToLoginPage = () => {
+  navigate("/login-page");
 };
  
 
@@ -30,8 +33,8 @@ export const Header = ({ logoSrc, ...rest }: HeaderProps) => {
       <button className='headerBtn'>Аренда</button>
       <button className='headerBtn'>Ипотека</button>
       <button className='headerBtn'>Мой дом</button>
-      <button className='headerBtn'>Вход</button>
-      <button className='button' onClick={goToNextPage}><img src="https://banner2.cleanpng.com/20180409/bhq/kisspng-computer-icons-user-profile-clip-art-write-5acbb361786d67.8983795715232991694933.jpg" alt="register" className='icon'/></button>
+      <button className='button' onClick={goToLoginPage}><img src="https://cdn4.iconfinder.com/data/icons/people-10/32/male-follow-1024.png" alt="" className='icon'/></button>
+      <button className='button' onClick={goToRegistrationPage}><img src="https://www.muctr.ru/upload/applicants/image/step-lk-1.png" alt="register" className='icon'/></button>
     </HeaderStyle>
       
       

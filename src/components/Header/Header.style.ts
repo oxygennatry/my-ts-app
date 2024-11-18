@@ -48,6 +48,7 @@ export const HeaderStyle = styled.div`
   border-radius:100px;
   transition: all 0.3s ease-in-out;
   transform:scale(1.1) ;
+  context:"рег";
 }
 
 .headerBtn:disabled {

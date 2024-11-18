@@ -5,6 +5,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { RegStyle } from './Registration.style'; 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Header } from '../../components/Header/Header';
+import { Footer } from '../../components/Footer/Footer';
 
 
 interface IRegistrationForm {
@@ -55,7 +56,7 @@ const RegistrationPage: React.FC = () => {
   };
 
   return (
-    
+    <>
     <RegStyle>
       <Header/>
       
@@ -88,9 +89,10 @@ const RegistrationPage: React.FC = () => {
                   placeholder="Email"
                   {...field}
                   className={errors.email ? 'error' : ''}
-                />
+                />               
               )}
             />
+           
             {errors.email && <p className="error-message">{errors.email.message}</p>}
 
             <Controller
@@ -126,11 +128,13 @@ const RegistrationPage: React.FC = () => {
             <button type="submit">Зарегистрироваться</button>
           </form>
           <div className="register-link">
-            <a href="#">Уже есть аккаунт? Войдите</a>
+          <a onClick={() => navigate("/login-page")}>Есть аккаунт?</a>
           </div>
         </div>
       </div>
     </RegStyle>
+    <Footer/>
+    </>
   );
 };
 
