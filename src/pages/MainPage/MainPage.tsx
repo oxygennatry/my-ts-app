@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Header } from "../../components/Header/Header";
 import { MainStyle } from "./MainPage.style";
 import { Footer } from "../../components/Footer/Footer";
-import PropertyDetailComponent from "../../api/Detail/ReturnAPI";
+import ListingCard from "../../api/ListingCard";
+import { useNavigate } from "react-router-dom";
 import { fetchPropertyDetails } from "../../api/Detail/MainAPI";
 
-
-interface PropertyDetail {
+export interface PropertyDetail {
   title: string;
   price: number;
   description: string;
@@ -19,17 +19,64 @@ interface PropertyDetail {
     url: string;
     title?: string;
   }>;
-  [key: string]: any;
 }
 
+const listings = [
+  {
+    id: 1,
+    title: "Роскошный пентхаус на Манхэттене",
+    price: "$3,000,000",
+    image:
+      "https://www.datocms-assets.com/121312/1710946359-53west53_gallery_28.jpg?auto=format%2Ccompress&fit=max&h=3000&w=2000",
+    address: "53 West 53rd St, New York, NY",
+  },
+  {
+    id: 2,
+    title: "Апартаменты с видом на Центральный парк",
+    price: "$2,200,000",
+    image:
+      "https://www.datocms-assets.com/121312/1710946399-53west53_gallery_30.jpg?auto=format%2Ccompress&fit=max&h=3000&w=2000",
+    address: "Central Park West, New York, NY",
+  },
+];
+
 export const MainPage: React.FC = () => {
-  const [showAutocomplete, setShowAutocomplete] = useState(false);
   const [inputValue, setInputValue] = useState(""); 
   const [property, setProperty] = useState<PropertyDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showAutocomplete, setShowAutocomplete] = useState(false);
   const autocompleteRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
- 
+  const handleCardClick = (id: number) => {
+    navigate("/property/${id}");
+  };
+
+  const handleInputClick = () => {
+    setShowAutocomplete(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearchClick = async () => {
+    if (!inputValue) {
+      alert("Пожалуйста, введите ID объекта в поле поиска.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const data = await fetchPropertyDetails(inputValue.trim());
+      setProperty(data);
+    } catch (error) {
+      console.error("Ошибка загрузки данных:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (autocompleteRef.current && !autocompleteRef.current.contains(event.target as Node)) {
@@ -40,31 +87,6 @@ export const MainPage: React.FC = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
-  const handleInputClick = () => {
-    setShowAutocomplete(true);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value); 
-  };
-
-  const handleSearchClick = async () => {
-    if (!inputValue) {
-      alert("Пожалуйста, введите ID объекта в поле поиска.");
-      return;
-    }
-
-    setLoading(true); 
-    try {
-      const data = await fetchPropertyDetails(inputValue.trim()); 
-      setProperty(data); 
-    } catch (error) {
-      console.error("Ошибка загрузки данных:", error);
-    } finally {
-      setLoading(false); 
-    }
-  };
 
   return (
     <>
@@ -89,13 +111,27 @@ export const MainPage: React.FC = () => {
           {showAutocomplete && (
             <div className="autocomplete_container" ref={autocompleteRef}>
               <ul className="autocomplete">
-                <li className="autocomlete_item">Country</li>
-                <li className="autocomlete_item">City</li>
-                <li className="autocomlete_item">Location</li>
+                <li className="autocomplete_item">Country</li>
+                <li className="autocomplete_item">City</li>
+                <li className="autocomplete_item">Location</li>
               </ul>
             </div>
           )}
         </div>
+      </MainStyle>
+
+      {listings.map((listing) => (
+        <div key={listing.id} onClick={() => handleCardClick(listing.id)}>
+          <ListingCard
+            title={listing.title}
+            price={listing.price}
+            image={listing.image}
+            address={listing.address}
+          />
+        </div>
+      ))}
+
+      <MainStyle>
         <section className="hero-image">
           <div className="info">
             <h2>Уникальные дома</h2>
@@ -108,19 +144,13 @@ export const MainPage: React.FC = () => {
             </a>
           </div>
         </section>
-
-   
-        {loading && <p>Загрузка данных...</p>}
+      </MainStyle>
 
      
-        {property && <PropertyDetailComponent property={property} />}
-      </MainStyle>
+
       <Footer />
     </>
   );
 };
 
 export default MainPage;
-
-
-

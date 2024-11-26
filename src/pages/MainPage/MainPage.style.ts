@@ -86,7 +86,7 @@ background-color:#ECECEC;
   style:none;
 }
 
-.autocomlete_item {
+li {
   padding: 10px;
    border-radius:13px;
    color:#616161 ;
@@ -95,7 +95,7 @@ font-weight: 600;
 }
 
 
-.autocomlete_item:hover {
+li:hover {
   background: #ECECEC;
   cursor: pointer;
   transition: cubic-bezier(1, 0, 0, 1) .2s all;
@@ -112,7 +112,6 @@ min-height: 64vh;
 
 h2{
 color:#ECECEC ;
-    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
     font-size: 32px;
 }
 

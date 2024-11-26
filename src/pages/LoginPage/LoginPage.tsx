@@ -79,7 +79,7 @@ const LoginPage: React.FC = () => {
             />
             {errors.password && <p className="error-message">{errors.password.message}</p>}
 
-            <button type="submit">Войти</button>
+            <button type="submit" className='RegButton'>Войти</button>
           </form>
           <div className="register-link">
             <a onClick={() => navigate("/registration-page")}>Нет аккаунта?</a>

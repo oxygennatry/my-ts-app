@@ -11,7 +11,7 @@ export const RegStyle = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 87.5vh;
+            min-height: 87vh;
             margin: 0;
         }
 
@@ -66,7 +66,7 @@ outline:none;
 border:none;
         }
 
-        button {
+        .RegButton {
             background-color: #FFFFFF;
   border:none;
   
@@ -93,7 +93,7 @@ border:none;
   transition: all 0.3s ease-in-out;
         }
 
-        button:hover {
+        .RegButton:hover {
             background-color:  #ECECEC;
   border-color: #ECECEC;
   border-radius:100px;

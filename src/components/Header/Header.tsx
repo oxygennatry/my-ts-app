@@ -22,6 +22,9 @@ export const Header = ({ logoSrc, ...rest }: HeaderProps) => {
 const goToLoginPage = () => {
   navigate("/login-page");
 };
+const goToCalcPage = () => {
+  navigate("/calc-page");
+};
  
 
   return (
@@ -31,7 +34,7 @@ const goToLoginPage = () => {
       <button className='headerBtn'>Купить</button>
       <button className='headerBtn'>Продать</button>
       <button className='headerBtn'>Аренда</button>
-      <button className='headerBtn'>Ипотека</button>
+      <button className='headerBtn' onClick={goToCalcPage}>Ипотека</button>
       <button className='headerBtn'>Мой дом</button>
       <button className='button' onClick={goToLoginPage}><img src="https://cdn4.iconfinder.com/data/icons/people-10/32/male-follow-1024.png" alt="" className='icon'/></button>
       <button className='button' onClick={goToRegistrationPage}><img src="https://www.muctr.ru/upload/applicants/image/step-lk-1.png" alt="register" className='icon'/></button>

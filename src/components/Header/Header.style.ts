@@ -63,7 +63,13 @@ export const HeaderStyle = styled.div`
 border:none;
 background-color:#FFF;
 cursor:pointer;
+transition: transform 0.3s;
 }
+.logo:hover {
+  transform: scale(1.05);
+  cursor:pointer;
+}
+
 
 input{
 background-color:#ECECEC;

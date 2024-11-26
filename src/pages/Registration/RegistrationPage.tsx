@@ -125,7 +125,7 @@ const RegistrationPage: React.FC = () => {
             />
             {errors.phone && <p className="error-message">{errors.phone.message}</p>}
 
-            <button type="submit">Зарегистрироваться</button>
+            <button type="submit" className='RegButton'>Зарегистрироваться</button>
           </form>
           <div className="register-link">
           <a onClick={() => navigate("/login-page")}>Есть аккаунт?</a>
