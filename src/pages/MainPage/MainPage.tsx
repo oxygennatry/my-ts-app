@@ -125,6 +125,7 @@ export const MainPage: React.FC = () => {
         </div>
       ))}
 
+
       <Ipoteca/>
 
       <MainStyle>

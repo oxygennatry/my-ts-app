@@ -6,27 +6,35 @@ import { MainPage } from './pages/MainPage/MainPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import MortgageCalculator from './components/Calc';
 import { Ipoteca } from './components/IpotekaInfo/Ipoteka';
+import PropertyDetailPage from './api/Properties/DetailCard';
+
 
 
 
 const routerConfig = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage />
+    element: <MainPage />,
   },
   {
     path: "/registration-page",
-    element: <RegistrationPage />
+    element: <RegistrationPage />,
   },
   {
     path: "/login-page",
-    element: <LoginPage />
+    element: <LoginPage />,
   },
   {
     path: "/calc-page",
-    element: <MortgageCalculator />
+    element: <MortgageCalculator />,
   },
+  {
+    path: "/property/:id", 
+    element: <PropertyDetailPage />,
+  }
 
+
+  
 ]);
 
 const App = () => {

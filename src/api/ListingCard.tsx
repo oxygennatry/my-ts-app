@@ -8,6 +8,7 @@ import {
   PhotoGallery,
   Loader,
 } from "./Properties/ListingCard.style";
+import { log } from "console";
 
 interface Apartment {
   title?: string;
@@ -48,6 +49,8 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
+      console.log(data);
+      
       const formattedData: Apartment[] = data.hits.map((item: any) => ({
         title: item.title || "Заголовок отсутствует",
         price: item.price || "Цена не указана",
