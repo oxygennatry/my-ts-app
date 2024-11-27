@@ -40,7 +40,7 @@ const PropertiesList: React.FC = () => {
         const options = {
           method: 'GET',
           headers: {
-            'x-rapidapi-key': '89f690b227mshcfe59b15167ba13p1215dbjsn50a071f51bc0', // Замените на ваш ключ
+            'x-rapidapi-key': '3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d', // Замените на ваш ключ
             'x-rapidapi-host': 'bayut.p.rapidapi.com',
           },
         };

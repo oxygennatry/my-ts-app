@@ -13,13 +13,13 @@ export interface PropertyDetailsResponse {
   }>;
 }
 
-// Функция для получения данных объекта по его ID
+
 export const fetchPropertyDetails = async (externalID: string): Promise<PropertyDetailsResponse> => {
   const url = `https://bayut.p.rapidapi.com/properties/detail?externalID=${externalID}`;
   const options: RequestInit = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "c7312006d1msh9d7b09e3fd48f7cp1e3fd6jsnfd22178cef3f", // Ваш API-ключ
+      "x-rapidapi-key": "3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d", // Ваш API-ключ
       "x-rapidapi-host": "bayut.p.rapidapi.com",
     },
   };
@@ -37,7 +37,7 @@ export const fetchPropertyDetails = async (externalID: string): Promise<Property
 
     const data: PropertyDetailsResponse = await response.json();
 
-    // Проверяем данные на наличие обязательных полей
+   
     if (!data || !data.title || !data.price || !data.location) {
       throw new Error("Некорректные данные, возвращенные API.");
     }
@@ -50,7 +50,7 @@ export const fetchPropertyDetails = async (externalID: string): Promise<Property
 };
 
 
-// Тип для списка объектов
+
 export interface Apartment {
   id: number;
   title: string;
@@ -59,13 +59,13 @@ export interface Apartment {
   address: string;
 }
 
-// Функция для получения списка объектов
+
 export const fetchApartmentData = async (): Promise<Apartment[]> => {
   const url = "https://bayut.p.rapidapi.com/properties/list";
   const options: RequestInit = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "3f70efe3f0msh5a8ef344423086bp1ccd03jsn387b6a962f8b", // Ваш API-ключ
+      "x-rapidapi-key": "3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d", 
       "x-rapidapi-host": "bayut.p.rapidapi.com",
     },
   };

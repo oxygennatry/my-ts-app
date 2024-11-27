@@ -7,6 +7,7 @@ gap: 5px;
 justify-content: center;
 text-shadow: none;
 background-color: #CFCFCF;
+
 `;
 
 export const ListingCardContainer = styled.div`

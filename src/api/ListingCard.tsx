@@ -19,7 +19,14 @@ interface Apartment {
   id: number;
 }
 
-const ListingCard: React.FC = () => {
+interface ListingCardProps {
+  title: string;
+  price: string;
+  image: string;
+  address: string;
+}
+
+const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address }) => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +37,7 @@ const ListingCard: React.FC = () => {
     const options = {
       method: "GET",
       headers: {
-        "x-rapidapi-key": "89f690b227mshcfe59b15167ba13p1215dbjsn50a071f51bc0", 
+        "x-rapidapi-key": "3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d", 
         "x-rapidapi-host": "bayut.p.rapidapi.com",
       },
     };
@@ -50,7 +57,7 @@ const ListingCard: React.FC = () => {
         area: item.area || 0,
         id: item.id,
       }));
-      setApartments(formattedData);
+      setApartments(formattedData.slice(0, 10)); // Ограничиваем до 8 карточек
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -105,12 +112,11 @@ const ListingCard: React.FC = () => {
           </ListingCardContainer>
         ))}
       </ListingsContainer>
-
-      
     </div>
   );
 };
 
 export default ListingCard;
+
 
 

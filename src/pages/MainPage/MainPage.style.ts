@@ -45,7 +45,7 @@ width:50px
 .input{
 width:calc(25vw + 220px);
 display: flex; 
-  justify-content: center;
+  
   margin-top: 480px;
 }
 
@@ -62,7 +62,7 @@ style:none;
 color:#616161 ;
 font-size:1.3rem;
 style:none;
-
+cursor:pointer;
 }
 
 input:focus{
@@ -132,7 +132,6 @@ align-items: center;
 p{
 width:calc(30vw + 280px);
 color:#ECECEC ;
-    text-shadow: rgb(0, 0, 0) 1px 1px 1px;
     font-size: 24px;
     line-height: 32px;
     letter-spacing: 0.48px;

@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer/Footer";
 import ListingCard from "../../api/ListingCard";
 import { useNavigate } from "react-router-dom";
 import { fetchPropertyDetails } from "../../api/Detail/MainAPI";
+import { Ipoteca } from "../../components/IpotekaInfo/Ipoteka";
 
 export interface PropertyDetail {
   title: string;
@@ -29,14 +30,6 @@ const listings = [
     image:
       "https://www.datocms-assets.com/121312/1710946359-53west53_gallery_28.jpg?auto=format%2Ccompress&fit=max&h=3000&w=2000",
     address: "53 West 53rd St, New York, NY",
-  },
-  {
-    id: 2,
-    title: "Апартаменты с видом на Центральный парк",
-    price: "$2,200,000",
-    image:
-      "https://www.datocms-assets.com/121312/1710946399-53west53_gallery_30.jpg?auto=format%2Ccompress&fit=max&h=3000&w=2000",
-    address: "Central Park West, New York, NY",
   },
 ];
 
@@ -117,6 +110,7 @@ export const MainPage: React.FC = () => {
               </ul>
             </div>
           )}
+          <img src="mapbox://styles/mapbox/standard-satellite" alt="" />
         </div>
       </MainStyle>
 
@@ -130,6 +124,8 @@ export const MainPage: React.FC = () => {
           />
         </div>
       ))}
+
+      <Ipoteca/>
 
       <MainStyle>
         <section className="hero-image">
