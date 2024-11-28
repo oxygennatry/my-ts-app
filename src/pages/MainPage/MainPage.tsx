@@ -3,8 +3,6 @@ import { Header } from "../../components/Header/Header";
 import { MainStyle } from "./MainPage.style";
 import { Footer } from "../../components/Footer/Footer";
 import ListingCard from "../../api/ListingCard";
-import { useNavigate } from "react-router-dom";
-import { fetchPropertyDetails } from "../../api/Detail/MainAPI";
 import { Ipoteca } from "../../components/IpotekaInfo/Ipoteka";
 
 export interface PropertyDetail {
@@ -33,16 +31,48 @@ const listings = [
   },
 ];
 
+const Modal: React.FC<{
+  isVisible: boolean;
+  onClose: () => void;
+  property: {
+    title: string;
+    price: string;
+    image: string;
+    address: string;
+  } | null;
+}> = ({ isVisible, onClose, property }) => {
+  if (!isVisible || !property) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
+        <h2>{property.title}</h2>
+        <p>Цена: {property.price}</p>
+        <p>Адрес: {property.address}</p>
+        <img src={property.image} alt={property.title} style={{ width: "100%" }} />
+      </div>
+    </div>
+  );
+};
+
 export const MainPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState(""); 
-  const [property, setProperty] = useState<PropertyDetail | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedListing, setSelectedListing] = useState<{
+    title: string;
+    price: string;
+    image: string;
+    address: string;
+  } | null>(null);
   const [showAutocomplete, setShowAutocomplete] = useState(false);
   const autocompleteRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
 
-  const handleCardClick = (id: number) => {
-    navigate("/property/${id}");
+  const handleCardClick = (listing: typeof listings[0]) => {
+    setSelectedListing(listing);
+    setShowModal(true);
   };
 
   const handleInputClick = () => {
@@ -53,21 +83,9 @@ export const MainPage: React.FC = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSearchClick = async () => {
-    if (!inputValue) {
-      alert("Пожалуйста, введите ID объекта в поле поиска.");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const data = await fetchPropertyDetails(inputValue.trim());
-      setProperty(data);
-    } catch (error) {
-      console.error("Ошибка загрузки данных:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedListing(null);
   };
 
   useEffect(() => {
@@ -93,7 +111,7 @@ export const MainPage: React.FC = () => {
               value={inputValue}
               onChange={handleInputChange}
             />
-            <button className="inputSearch" onClick={handleSearchClick}>
+            <button className="inputSearch">
               <img
                 src="https://img.ws.mms.shopee.ph/sg-11134004-23010-10kdah68gzlva9"
                 alt="Иконка поиска"
@@ -110,14 +128,13 @@ export const MainPage: React.FC = () => {
               </ul>
             </div>
           )}
-          <img src="mapbox://styles/mapbox/standard-satellite" alt="" />
         </div>
       </MainStyle>
 
       {listings.map((listing) => (
-        <div key={listing.id} onClick={() => handleCardClick(listing.id)}>
+        <div key={listing.id} onClick={() => handleCardClick(listing)}>
           <ListingCard
-          maxItems={7}
+            maxItems={7}
             title={listing.title}
             price={listing.price}
             image={listing.image}
@@ -126,7 +143,7 @@ export const MainPage: React.FC = () => {
         </div>
       ))}
 
-<MainStyle>
+      <MainStyle>
         <section className="hero-image">
           <div className="info">
             <h2>Уникальные дома</h2>
@@ -141,13 +158,12 @@ export const MainPage: React.FC = () => {
         </section>
       </MainStyle>
 
-      <Ipoteca/>
-
-      
-
-     
+      <Ipoteca />
 
       <Footer />
+
+      
+      
     </>
   );
 };

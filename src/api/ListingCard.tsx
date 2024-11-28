@@ -8,6 +8,7 @@ import {
   PhotoGallery,
   Loader,
 } from "./Properties/ListingCard.style";
+import { StyleModal } from "../pages/MainPage/ModalInfo.style";
 
 interface Apartment {
   title?: string;
@@ -20,17 +21,27 @@ interface Apartment {
 }
 
 interface ListingCardProps {
-  title: string;
-  price: string;
-  image: string;
-  address: string;
-  maxItems?: number; // Новый пропс для ограничения количества элементов
+  maxItems?: number; 
+  title?: string;
+  price?: string;
+  image?: string;
+  address?: string;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
+
+const ListingCard: React.FC<ListingCardProps> = ({
+  maxItems = 10,
+  title,
+  price,
+  image,
+  address,
+}) => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedApartment, setSelectedApartment] = useState<Apartment | null>(
+    null
+  );
 
   const fetchApartmentData = async () => {
     const url =
@@ -60,7 +71,6 @@ const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
         id: item.id,
       }));
 
-      // Ограничиваем количество квартир с помощью пропса maxItems
       setApartments(formattedData.slice(0, maxItems));
     } catch (error: any) {
       setError(error.message);
@@ -71,7 +81,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
 
   useEffect(() => {
     fetchApartmentData();
-  }, [maxItems]); 
+  }, [maxItems]);
 
   if (loading) {
     return (
@@ -89,11 +99,19 @@ const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
     return <p>Нет доступных квартир.</p>;
   }
 
+
+  const closeModal = () => {
+    setSelectedApartment(null);
+  };
+
   return (
     <div>
       <ListingsContainer>
         {apartments.map((apartment) => (
-          <ListingCardContainer key={apartment.id}>
+          <ListingCardContainer
+            key={apartment.id}
+            onClick={() => setSelectedApartment(apartment)}
+          >
             <PhotoGallery>
               <ListingImage
                 src={apartment.coverPhoto?.url || "/path/to/placeholder/image.jpg"}
@@ -116,12 +134,40 @@ const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
           </ListingCardContainer>
         ))}
       </ListingsContainer>
+
+      
+      <StyleModal>
+      {selectedApartment && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              ✖
+            </button>
+            <h2>{selectedApartment.title || "Заголовок отсутствует"}</h2>
+            <img
+              src={selectedApartment.coverPhoto?.url || "/path/to/placeholder/image.jpg"}
+              alt={selectedApartment.title || "Изображение недоступно"}
+            />
+            <p>
+              <strong>Цена:</strong>{" "}
+              {selectedApartment.price ? `${selectedApartment.price} AED` : "Не указана"}
+            </p>
+            <p>
+              <strong>Местоположение:</strong>{" "}
+              {selectedApartment.location.name || "Не указано"}
+            </p>
+            <p>
+              <strong>Площадь:</strong>{" "}
+              {selectedApartment.area ? `${selectedApartment.area} кв.м` : "Не указана"}
+            </p>
+          </div>
+        </div>
+      )}
+      </StyleModal>
     </div>
   );
 };
 
 export default ListingCard;
-
-
 
 
