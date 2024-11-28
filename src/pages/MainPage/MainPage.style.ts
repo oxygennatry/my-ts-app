@@ -9,7 +9,6 @@ export const MainStyle = styled.div`
  min-height: 77vh;
  background-repeat: no-repeat;
  display: flex;
-  
   align-items: center;
   background-position: center;
    flex-direction: column;

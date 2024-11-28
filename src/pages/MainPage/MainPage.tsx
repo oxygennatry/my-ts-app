@@ -117,6 +117,7 @@ export const MainPage: React.FC = () => {
       {listings.map((listing) => (
         <div key={listing.id} onClick={() => handleCardClick(listing.id)}>
           <ListingCard
+          maxItems={7}
             title={listing.title}
             price={listing.price}
             image={listing.image}
@@ -125,10 +126,7 @@ export const MainPage: React.FC = () => {
         </div>
       ))}
 
-
-      <Ipoteca/>
-
-      <MainStyle>
+<MainStyle>
         <section className="hero-image">
           <div className="info">
             <h2>Уникальные дома</h2>
@@ -142,6 +140,10 @@ export const MainPage: React.FC = () => {
           </div>
         </section>
       </MainStyle>
+
+      <Ipoteca/>
+
+      
 
      
 

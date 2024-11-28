@@ -7,6 +7,10 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import MortgageCalculator from './components/Calc';
 import { Ipoteca } from './components/IpotekaInfo/Ipoteka';
 import PropertyDetailPage from './api/Properties/DetailCard';
+import { BuyPage } from './pages/BuyPage/ByPage';
+import { MyHome } from './pages/MyHome/MyHome';
+import { Modal } from './pages/MyHome/ModalWindow';
+import { Weather } from './pages/Weather/Weather';
 
 
 
@@ -31,7 +35,19 @@ const routerConfig = createBrowserRouter([
   {
     path: "/property/:id", 
     element: <PropertyDetailPage />,
-  }
+  },
+  {
+    path: "/buy-page", 
+    element: <BuyPage />,
+  },
+  {
+    path: "/home-page", 
+    element: <MyHome />,
+  },
+  {
+    path: "/weather-page", 
+    element: <Weather />,
+  },
 
 
   

@@ -35,8 +35,12 @@ export const RegStyle = styled.div`
         
 
         h2 {
-            color: #616161; 
-            margin-bottom: 20px;
+           font-family: 'Space Mono', monospace;
+  font-weight: 700; /* Adjust font weight */
+  font-size: 2rem; /* Adjust font size */
+  text-align: center; /* Center the text */
+  color:#404040 ;
+ letter-spacing: 2px;
         }
 
         input[type="text"],

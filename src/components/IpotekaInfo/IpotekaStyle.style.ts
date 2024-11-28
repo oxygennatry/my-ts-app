@@ -4,11 +4,12 @@ import styled from "styled-components";
 export const IpotekaStyle = styled.div`
 
 section{
+border-top:1px solid #404040;
 display: flex;
  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #CFCFCF;
+  background-color: #ffff;
 }
 
 .first,.second{
@@ -72,13 +73,13 @@ color:#404040 ;
   padding:20px;
    flex-direction: column;
    gap:12px;
-   background-color: #CFCFCF;
+   background-color: #ffff;
      justify-content: center;
 }
 
 
 a, button {
-            background-color: #919191;
+            background-color: #ECECEC;
   border:none;
   
   box-sizing: border-box;
@@ -105,7 +106,7 @@ a, button {
         }
 
         a:hover {
-            background-color:  #404040;
+            background-color:  #919191;
   color:#ECECEC;
   transition: all 0.2s ease-in-out;
   transform:scale(1.02) ;
@@ -113,7 +114,7 @@ a, button {
 
   export const Btn = styled.div`
   .headerBtn {
-        background-color: #919191;
+        background-color: #ECECEC;
   border:none;
   box-sizing: border-box;
   color: #404040;
@@ -140,9 +141,10 @@ a, button {
 
 
   .headerBtn:hover {
-            background-color:  #404040;
+            background-color:  #919191;
   border-color: #ECECEC;
   color:#ECECEC;
+   text-align: center;
   transition: all 0.2s ease-in-out;
   transform:scale(1.02) ;
 

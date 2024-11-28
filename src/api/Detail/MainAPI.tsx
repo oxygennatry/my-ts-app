@@ -78,7 +78,6 @@ export const fetchApartmentData = async (): Promise<Apartment[]> => {
 
     const data = await response.json();
 
-    // Проверяем, что данные пришли с ожидаемой структурой
     if (!data.hits || !Array.isArray(data.hits)) {
       throw new Error("Некорректные данные, возвращенные API.");
     }

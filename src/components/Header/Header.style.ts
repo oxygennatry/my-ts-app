@@ -9,6 +9,7 @@ export const HeaderStyle = styled.div`
   background-color: #fff;
   font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
   width: auto;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 
 
 

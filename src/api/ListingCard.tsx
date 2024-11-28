@@ -8,7 +8,6 @@ import {
   PhotoGallery,
   Loader,
 } from "./Properties/ListingCard.style";
-import { log } from "console";
 
 interface Apartment {
   title?: string;
@@ -25,9 +24,10 @@ interface ListingCardProps {
   price: string;
   image: string;
   address: string;
+  maxItems?: number; // Новый пропс для ограничения количества элементов
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address }) => {
+const ListingCard: React.FC<ListingCardProps> = ({ maxItems = 10 }) => {
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +38,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
     const options = {
       method: "GET",
       headers: {
-        "x-rapidapi-key": "3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d", 
+        "x-rapidapi-key": "3b68f0a2b0mshac4cd25332983c6p1f5373jsnc8c898078e3d",
         "x-rapidapi-host": "bayut.p.rapidapi.com",
       },
     };
@@ -49,8 +49,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      console.log(data);
-      
+
       const formattedData: Apartment[] = data.hits.map((item: any) => ({
         title: item.title || "Заголовок отсутствует",
         price: item.price || "Цена не указана",
@@ -60,7 +59,9 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
         area: item.area || 0,
         id: item.id,
       }));
-      setApartments(formattedData.slice(0, 10)); // Ограничиваем до 8 карточек
+
+      // Ограничиваем количество квартир с помощью пропса maxItems
+      setApartments(formattedData.slice(0, maxItems));
     } catch (error: any) {
       setError(error.message);
     } finally {
@@ -70,7 +71,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
 
   useEffect(() => {
     fetchApartmentData();
-  }, []);
+  }, [maxItems]); 
 
   if (loading) {
     return (
@@ -120,6 +121,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ title, price, image, address 
 };
 
 export default ListingCard;
+
 
 
 
